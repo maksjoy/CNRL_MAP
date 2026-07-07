@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<!-- APP_VERSION: 2026.07.06-5 -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#0B0D10" id="themeColorMeta">
+<title>CNRL map</title>
+
+<!-- iOS home screen support -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CNRL map">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAFB0lEQVR4nO3d0WobSRCF4ZbJXQgEAnnFPFNeMRAwGF8nF/EYWdFopruruqtP/d/1rjyz/nXSlhXtpQTx+cvXP7OvAe1eX54vs6+hlFKmXATx6psV+LAvSsR5jYzb/QsRMq55x+324ISMR7zCNn9QQkYN67DNHoyQ0coyapMHImZYsAj7qfcBiBlWLFpqfkYQMjy1rnXTQhMzvLU2Vh00MWOUltaqgiZmjFbb3OmgiRmz1LR3KmhixmxnG+x+2Q6I5DBo1hlRnGnxYdDEjGiOmtwNmpgR1aM2OUNDyt2gWWdEt9coCw0p/wXNOmMV91ploSHlQ9CsM1Zz2ywLDSnvQbPOWNV1uyw0pBA0pDyVwnED69saZqEhhaAhhaAhhaAh5cIPhFDCQkMKQUMKQUMKQUMKQUMKQUMKQUMKQUMKQUMKQUPKp9kXoObXz29V//z3H7+driQn3svRqTbgIwTeh6AbWEe8h7jrEXSFUSHfIuzzCPqEWSHfIuxjBP1AlJBvEfY+XrbbETXmUmJf22ws9I3VYmGtP2Khr6wWcylrXrMngn6zchgrX7s1gi4aQSjcg4X0QSuFoHQvrVIHrRiA4j3VSBu08jde+d6OpA0amlIGnWHBMtzjPemCzvSNznSvm3RBQ1uqoDMuVrZ75q9gOTl6j0W20EZJ8+akqH/LJOp1rYqFNtIazPbvsdg2UpyhvWOxWD/vBc3yhEkRtCfLELMcCzwRdAePAIm6j3zQXn/Ueobn9dgZjh3yQXsYsaIsdRuChhSCrjRyOVnpetJBZzgz1lL/byIdtLUZi8lK1yFoSCFoSCFoSCFoSCFoSCFoSCFoSCHoCjN+KaH+ixBrBA0p0kF7/JZt5GJ6fC313zxKB418CLrBiJXm7NyGoBt5BkfM7eSD9jwzeoTnGbP6+bmUBEF7swyQZe5H0AYsQiRmG3wUmDE+CmwuPgrM2BYoH9Y4R5qFLiVvRFnWuRTO0BCTKuhMS7XJds+pgoa+dEFnWqxM97pJF3QpOb7RGe7xnpRBQ1faoJUXTPnejqQNuhTNb7ziPdVIHXQpWgEo3Uur9EGXohGCwj1YIOg3Kwex8rVbI+grK4ax4jV7SvXmpBrR38hEyPex0DsiBxP52mZjoU+IstaEfIygK8wKm5DP48hRgf/HSnwEXYnAYiPowHjy1CPoBoQWF0EHxZOmDUE3IriYCDogniztCLoD4cVD0MHwJOlD0JBC0J1Y1FgIOhCeHP0I2gAhxkHQQfCksEHQRggyBoIOgCeDHYI2RJjzEfRkPAlsEbQxAp2LoCGFoB2cXWnW3B5BQwpBOzlaX9bZB0FDCkE72lth1tkPQUMKQTu7XWPW2RdBQwpBD7CtMuvsj6AhhY/ThRQWGlIIGlIIGlIIGlKeXl+eL7MvArDw+vJ8YaEhhaAhhaAh5amUf2eP2RcC9NgaZqEhhaAh5T1ojh1Y1XW7LDSkEDSkfAiaYwdWc9ssCw0p/wXNSmMV91ploSHlbtCsNKLba3R3oYkaUT1qkyMHpDwMmpVGNEdNHi40USOKMy1y5MASzg7rqaBZaazi9EITNWapaa/qyEHUGK22ueozNFFjlJbWmuPkQx7hpWc0u9eWsGGp9wTQ/bIdRxBYsWjJLEaWGq0sR9F8XQkbNaz/hHc7LhA2HvE6qrqffwkb17x/5hr2Ax1h5zXyhYMpr1AQt75Zr36FecmNyNcW5eXbv1kRoLAhDsifAAAAAElFTkSuQmCC">
+
+<!-- Android / general favicon -->
+<link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAFaElEQVR4nO3dyWokRxQF0JTwzhgMBv+iv8m/aDAIGq3bC3c11dU15BBDRtxz1kLKFPe+F1kqSW/Lyfz62+9fe18D9Xx++XjrfQ3Xul6MsNO7EM2/uNDzSI8yNPuCgs8WrcpQ/YsIPkfULkK1Ty74lFSrCMU/qeBTU+kivJf8ZMJPbaUzVqRNgk8PJbbB4Q0g/PRSInuHCiD89HY0g7sLIPycxZEs7iqA8HM2ezO5uQDCz1ntyeamAgg/Z7c1o6sLIPyMYktWVxVA+BnN2sy+LIDwM6o12S36VggYzdMCmP6M7lWGHxZA+JnFsyw7AhHtbgFMf2bzKNM2ANF+KoDpz6zuZdsGINoPBTD9md1txm0Aon0vgOlPiuus2wBEUwCivS+L4w95Lpm3AYimAERTAKIpANHePACTzAYgmgIQTQGIpgBEUwCiKQDRFIBoCkA0BSCaAhBNAYj2S+8LSPHP339s+vg///q30pVwzZvhKtka+FcUog4FKKh06B9RhnIU4KBWoX9EGY5RgJ16B/+WIuzjVaAdzhb+ZTnnNY3ABthglJDZBuvZACuNEv5lGetae7MBXhg9TLbBczbAE6OHf1nmuIeaFOCBmYIz072UpgB3zBiYGe+pBAW4MXNQZr63vRTgSkJAEu5xCwUgmgJ8kzQZk+71FQVYMgOReM/3KADR4guQPAmT7/0iugAC4HsQXQCIfTNcr8n36s1pZ72uWfmrEA1sCdf1x6YfT1qI3ACj/fL6aNc7Es8AlZQMU2IwW1GACmoEVgnqiCtA7eNEzaDWLkHiM0dcAWpqMaVtgrIUoJCWwVSCchSAaApQQI+JbAuUEVWAxIe8rdK+R1EFgFsKcFDPo4hj0HEKQDQFIJoCEE0BiKYARFMAoinAQT1/cJT2Q6saFIBoUQXwg6PX0r5HUQWopcdRxPGnDAUgmgIU0nIim/7lKEBBLYIp/GXFFWDkXywf+Rf6zyquAC3UCKrJX4cCVFIysMJfT+SfRlyWtqHae7QY4RpH54/jNnAd5LP+dehUsRtgWYTtInX6L4tnAMJFFyB58l2kfw+iC7As2QFIvveL+AKQTQGWzEmYeM/3KMA3SYFIutdXFIBoCnAlYTIm3OMWCnBj5oDMfG97KcAdMwZlxnsqQQEemCkwM91LaQrwxAzBmeEeaop+M9wWo71xTvDXsQFWGilQI11rbzbADmfdBoK/nQ2wwxmDdsZrGoENcFDvbSD4x9gAB/kneWNTAKIpQAEm8bgUYFBKV4YCFCKQY1KAASlbOQpQkGCORwEGo2RlKUBhAjoWBRiIcpWnABUI6jgUYBBKVYcCVCKwY1CAAShTPQpQkeCenwKcnBLVpQCVCfC5KQDRFKCBvVvA9qhPAYimAI1sneamfxsKQDQFaGjtVDf921EAoilAY6+mu+nflgIQTQE6eDTlTf/2FIBoCtDJ7bQ3/ftQAKIpQEeXqW/696MARPMPMohmAxBNAYimAERTAKIpALE+v3y8vX9++XjrfSHQiw1ANAUgmgIQ7X1Z/n8Y6H0h0NIl8zYA0RSAaN8L4BhEiuus2wBEUwCi/VAAxyBmd5txG4BoPxXAFmBW97JtAxDtbgFsAWbzKNM2ANEeFsAWYBbPsvx0AygBo3uVYUcgprVmgL8sgC3AzFZtACVgNGszu/oIpASMYktWNz0DKAFntzWjmx+ClYCz2pPNXa8CKQFnszeTu18GVQLO4kgWD/0cQAno7WgGiwTYP9mgtVLDt+gEVwRaKHnyKPpWCEciaiudsWqBtQ0oqdZwrT6xFYEjap8qmh1ZFIEtWh2nm5/ZFYFHejxDdn1oVQZ6v3ByuldtlGJevcN+z38dt7qWu2DGLgAAAABJRU5ErkJggg==">
+
+<style>
+  :root{
+    --bg: #0B0D10;
+    --panel: #15181D;
+    --panel-2: #1D2127;
+    --line: #262B33;
+    --amber: #F5A623;
+    --amber-dim: #8A6A2E;
+    --green: #3DD68C;
+    --text: #EDEFF2;
+    --muted: #8A929E;
+    --mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
+  html[data-theme="light"]{
+    --bg: #EEF1F4;
+    --panel: #FFFFFF;
+    --panel-2: #F7F8FA;
+    --line: #DCE1E6;
+    --amber: #C97A12;
+    --amber-dim: #B08A4E;
+    --green: #1E9C64;
+    --text: #171A1E;
+    --muted: #5B6470;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: var(--bg); color: var(--text);
+    font-family: var(--sans);
+    overscroll-behavior-y: contain;
+  }
+  body { display: flex; flex-direction: column; }
+
+  header {
+    padding: 18px 16px 14px;
+    border-bottom: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--amber-dim);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .eyebrow .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--muted);
+    display: inline-block;
+    margin-right: 6px;
+    box-shadow: 0 0 0 0 rgba(61,214,140,0.6);
+  }
+  .eyebrow .dot.on {
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(61,214,140,0.5); }
+    70% { box-shadow: 0 0 0 6px rgba(61,214,140,0); }
+    100% { box-shadow: 0 0 0 0 rgba(61,214,140,0); }
+  }
+  .title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  h1 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  h1 span { color: var(--amber); }
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-btn:active { transform: scale(0.92); }
+
+  .update-banner {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: var(--amber);
+    color: #0B0D10;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .update-banner.show { display: flex; }
+  .update-banner button {
+    flex-shrink: 0;
+    background: #0B0D10;
+    color: var(--amber);
+    border: none;
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: var(--mono);
+  }
+  .update-banner button:active { transform: scale(0.95); }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 50;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    width: 100%;
+    max-width: 480px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 18px 18px 0 0;
+    padding: 22px 20px calc(20px + env(safe-area-inset-bottom));
+  }
+  .modal-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .modal-body {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .modal-body .step {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .modal-body .step-num {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background: var(--amber);
+    color: #0B0D10;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-body .icon-inline {
+    font-size: 15px;
+  }
+  .modal-close {
+    margin-top: 16px;
+    width: 100%;
+    padding: 13px;
+    border-radius: 10px;
+    background: var(--amber);
+    color: #0B0D10;
+    border: none;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .search-wrap {
+    padding: 14px 16px 10px;
+    flex-shrink: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .readout {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    min-height: 18px;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .readout b { color: var(--amber); font-weight: 700; }
+  .input-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 0 4px 0 14px;
+  }
+  .input-row:focus-within {
+    border-color: var(--amber-dim);
+  }
+  #search {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 14px 0;
+    text-transform: uppercase;
+  }
+  #search::placeholder {
+    color: var(--muted);
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+  #clear {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: none;
+  }
+  #clear.show { display: block; }
+
+  .loc-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  #locBtn {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 7px 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  #locBtn.active { color: var(--green); border-color: rgba(61,214,140,0.35); }
+  #locStatus { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 16px 100px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .count-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 12px 2px 8px;
+  }
+  .results { display: flex; flex-direction: column; gap: 8px; }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: rise 0.18s ease-out;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .card-main { flex: 1; min-width: 0; }
+  .card-name {
+    font-family: var(--mono);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-name mark { background: none; color: var(--amber); }
+  .card-info {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-dist {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--green);
+    margin-top: 4px;
+  }
+  .go-btn {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    background: var(--amber);
+    color: #0B0D10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 22px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .go-btn:active { transform: scale(0.94); }
+  .go-btn:disabled { opacity: 0.7; }
+
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+  }
+  .empty .big { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
+  .empty .hint { font-family: var(--mono); font-size: 12px; margin-top: 8px; color: var(--amber-dim); }
+
+  footer {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, var(--bg) 60%, transparent);
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">
+    <span><span class="dot" id="gpsDot"></span>WABASCA / PELICAN LAKE</span>
+    <span id="wellCount">472 SITES</span>
+  </div>
+  <div class="title-row">
+    <h1><span>CNRL</span> map</h1>
+    <div class="header-actions">
+      <button id="themeBtn" class="icon-btn" title="Toggle day/night">🌙</button>
+      <button id="installBtn" class="icon-btn" title="Add to home screen">⤓</button>
+    </div>
+  </div>
+</header>
+
+<div id="updateBanner" class="update-banner">
+  <span>🔄 A new version of CNRL map is available</span>
+  <button id="updateBtn">Update now</button>
+</div>
+
+<div id="installModal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-title">Add CNRL map to your home screen</div>
+    <div id="installBody" class="modal-body"></div>
+    <button id="installClose" class="modal-close">Got it</button>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <div class="readout" id="readout">Type a well ID or asset name — e.g. <b>CB20</b></div>
+  <div class="input-row">
+    <input id="search" type="text" placeholder="CB20, 13-11, ETV #4..." autocomplete="off" autocapitalize="characters" spellcheck="false">
+    <button id="clear">✕</button>
+  </div>
+  <div class="loc-row">
+    <button id="locBtn">📍 Sort by distance</button>
+    <span id="locStatus"></span>
+  </div>
+</div>
+
+<main>
+  <div id="content"></div>
+</main>
+
+<footer>472 SITES · WORKS OFFLINE · TAP TO ROUTE</footer>
+
+<script>
+// ---------- Dynamic manifest (enables "Install app" on Android/Chrome) ----------
+(function setupManifest() {
+  const icon192 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAFaElEQVR4nO3dyWokRxQF0JTwzhgMBv+iv8m/aDAIGq3bC3c11dU15BBDRtxz1kLKFPe+F1kqSW/Lyfz62+9fe18D9Xx++XjrfQ3Xul6MsNO7EM2/uNDzSI8yNPuCgs8WrcpQ/YsIPkfULkK1Ty74lFSrCMU/qeBTU+kivJf8ZMJPbaUzVqRNgk8PJbbB4Q0g/PRSInuHCiD89HY0g7sLIPycxZEs7iqA8HM2ezO5uQDCz1ntyeamAgg/Z7c1o6sLIPyMYktWVxVA+BnN2sy+LIDwM6o12S36VggYzdMCmP6M7lWGHxZA+JnFsyw7AhHtbgFMf2bzKNM2ANF+KoDpz6zuZdsGINoPBTD9md1txm0Aon0vgOlPiuus2wBEUwCivS+L4w95Lpm3AYimAERTAKIpANHePACTzAYgmgIQTQGIpgBEUwCiKQDRFIBoCkA0BSCaAhBNAYj2S+8LSPHP339s+vg///q30pVwzZvhKtka+FcUog4FKKh06B9RhnIU4KBWoX9EGY5RgJ16B/+WIuzjVaAdzhb+ZTnnNY3ABthglJDZBuvZACuNEv5lGetae7MBXhg9TLbBczbAE6OHf1nmuIeaFOCBmYIz072UpgB3zBiYGe+pBAW4MXNQZr63vRTgSkJAEu5xCwUgmgJ8kzQZk+71FQVYMgOReM/3KADR4guQPAmT7/0iugAC4HsQXQCIfTNcr8n36s1pZ72uWfmrEA1sCdf1x6YfT1qI3ACj/fL6aNc7Es8AlZQMU2IwW1GACmoEVgnqiCtA7eNEzaDWLkHiM0dcAWpqMaVtgrIUoJCWwVSCchSAaApQQI+JbAuUEVWAxIe8rdK+R1EFgFsKcFDPo4hj0HEKQDQFIJoCEE0BiKYARFMAoinAQT1/cJT2Q6saFIBoUQXwg6PX0r5HUQWopcdRxPGnDAUgmgIU0nIim/7lKEBBLYIp/GXFFWDkXywf+Rf6zyquAC3UCKrJX4cCVFIysMJfT+SfRlyWtqHae7QY4RpH54/jNnAd5LP+dehUsRtgWYTtInX6L4tnAMJFFyB58l2kfw+iC7As2QFIvveL+AKQTQGWzEmYeM/3KMA3SYFIutdXFIBoCnAlYTIm3OMWCnBj5oDMfG97KcAdMwZlxnsqQQEemCkwM91LaQrwxAzBmeEeaop+M9wWo71xTvDXsQFWGilQI11rbzbADmfdBoK/nQ2wwxmDdsZrGoENcFDvbSD4x9gAB/kneWNTAKIpQAEm8bgUYFBKV4YCFCKQY1KAASlbOQpQkGCORwEGo2RlKUBhAjoWBRiIcpWnABUI6jgUYBBKVYcCVCKwY1CAAShTPQpQkeCenwKcnBLVpQCVCfC5KQDRFKCBvVvA9qhPAYimAI1sneamfxsKQDQFaGjtVDf921EAoilAY6+mu+nflgIQTQE6eDTlTf/2FIBoCtDJ7bQ3/ftQAKIpQEeXqW/696MARPMPMohmAxBNAYimAERTAKIpALE+v3y8vX9++XjrfSHQiw1ANAUgmgIQ7X1Z/n8Y6H0h0NIl8zYA0RSAaN8L4BhEiuus2wBEUwCi/VAAxyBmd5txG4BoPxXAFmBW97JtAxDtbgFsAWbzKNM2ANEeFsAWYBbPsvx0AygBo3uVYUcgprVmgL8sgC3AzFZtACVgNGszu/oIpASMYktWNz0DKAFntzWjmx+ClYCz2pPNXa8CKQFnszeTu18GVQLO4kgWD/0cQAno7WgGiwTYP9mgtVLDt+gEVwRaKHnyKPpWCEciaiudsWqBtQ0oqdZwrT6xFYEjap8qmh1ZFIEtWh2nm5/ZFYFHejxDdn1oVQZ6v3ByuldtlGJevcN+z38dt7qWu2DGLgAAAABJRU5ErkJggg==";
+  const icon512 = "data:image/png;base64,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";
+  const manifest = {
+    name: "CNRL map",
+    short_name: "CNRL map",
+    start_url: ".",
+    scope: ".",
+    display: "standalone",
+    background_color: "#0B0D10",
+    theme_color: "#0B0D10",
+    icons: [
+      { src: icon192, sizes: "192x192", type: "image/png", purpose: "any maskable" },
+      { src: icon512, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+    ]
+  };
+  const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('link');
+  link.rel = 'manifest';
+  link.href = url;
+  document.head.appendChild(link);
+})();
+
+const WELLS = [{"name": "ETV #4", "lat": 56.0976099, "lng": -113.4400455, "info": "grey SUV, building code 425, key is on left wall when you enter the office, phone is on wall"}, {"name": "AED #4", "lat": 56.0966793, "lng": -113.4375039, "info": "24hr manned"}, {"name": "Main CNRL Camp", "lat": 56.0986426, "lng": -113.4302054, "info": ""}, {"name": "Cold storage", "lat": 56.0990439, "lng": -113.3781031, "info": ""}, {"name": "13-01 Gas", "lat": 55.9956917, "lng": -113.4748363, "info": ""}, {"name": "13-11 battery", "lat": 56.1844667, "lng": -113.0596208, "info": ""}, {"name": "9-02 (92) plant", "lat": 55.995625, "lng": -113.4784182, "info": ""}, {"name": "(Old) Central camp", "lat": 55.9665671, "lng": -113.3934467, "info": ""}, {"name": "1-36 plant", "lat": 55.9702683, "lng": -113.3006522, "info": ""}, {"name": "7-27 plant", "lat": 56.1349995, "lng": -113.2003425, "info": ""}, {"name": "6-27 plant", "lat": 56.1359399, "lng": -113.0200882, "info": ""}, {"name": "11-7 plant", "lat": 56.0969727, "lng": -113.4410057, "info": ""}, {"name": "XOT shop", "lat": 56.0995037, "lng": -113.4016832, "info": ""}, {"name": "BA1 barney", "lat": 55.934048, "lng": -113.1409115, "info": ""}, {"name": "BA2 barney", "lat": 55.9407967, "lng": -113.1372604, "info": ""}, {"name": "BA3 barney", "lat": 55.9347027, "lng": -113.0947066, "info": ""}, {"name": "BP1A brintnell", "lat": 56.0360101, "lng": -113.4279981, "info": ""}, {"name": "BP2 brintnell", "lat": 56.0242625, "lng": -113.3981858, "info": ""}, {"name": "BP3 brintnell", "lat": 56.0223692, "lng": -113.4225767, "info": ""}, {"name": "BP4 brintnell", "lat": 56.0212524, "lng": -113.407419, "info": ""}, {"name": "BP5 brintnell", "lat": 56.022198, "lng": -113.391877, "info": ""}, {"name": "BP6 brintnell", "lat": 56.0188443, "lng": -113.3976482, "info": ""}, {"name": "BP7 brintnell", "lat": 56.0141138, "lng": -113.3916488, "info": ""}, {"name": "BP8 brintnell", "lat": 56.0076576, "lng": -113.3901421, "info": ""}, {"name": "BP9 brintnell", "lat": 56.0033284, "lng": -113.4024612, "info": ""}, {"name": "BP10 brintnell", "lat": 56.0039337, "lng": -113.3949755, "info": ""}, {"name": "BP11 brintnell", "lat": 55.9987863, "lng": -113.3976961, "info": ""}, {"name": "BP12 brintnell", "lat": 56.0004579, "lng": -113.3900769, "info": ""}, {"name": "BP14 brintnell", "lat": 56.0441864, "lng": -113.3698289, "info": ""}, {"name": "BP15 brintnell", "lat": 56.0439437, "lng": -113.3644016, "info": ""}, {"name": "BP16 brintnell", "lat": 56.0410739, "lng": -113.3667836, "info": ""}, {"name": "BP17 brintnell", "lat": 56.03475, "lng": -113.3667074, "info": "verified"}, {"name": "BP18 brintnell", "lat": 56.0205953, "lng": -113.36372, "info": ""}, {"name": "BP19 brintnell", "lat": 56.0103147, "lng": -113.3612099, "info": ""}, {"name": "BP20 brintnell", "lat": 56.0680616, "lng": -113.3411956, "info": ""}, {"name": "BP21 brintnell", "lat": 56.0598865, "lng": -113.341288, "info": ""}, {"name": "BP22 brintnell", "lat": 56.0365718, "lng": -113.3339402, "info": ""}, {"name": "BP23 brintnell", "lat": 56.009186, "lng": -113.3428261, "info": ""}, {"name": "BP24 brintnell", "lat": 56.0092213, "lng": -113.3341363, "info": ""}, {"name": "BP25 brintnell", "lat": 55.9939035, "lng": -113.3715093, "info": ""}, {"name": "BP26 brintnell", "lat": 55.9866313, "lng": -113.3499888, "info": ""}, {"name": "BP29 brintnell", "lat": 56.0412101, "lng": -113.422779, "info": ""}, {"name": "BP30 brintnell", "lat": 56.0407865, "lng": -113.4089157, "info": ""}, {"name": "BP99 brintnell", "lat": 56.009112, "lng": -113.3194399, "info": ""}, {"name": "BP100 brintnell", "lat": 55.9849335, "lng": -113.301483, "info": ""}, {"name": "BP101 brintnell", "lat": 56.0343646, "lng": -113.3070949, "info": ""}, {"name": "BP102 brintnell", "lat": 56.0342673, "lng": -113.3231643, "info": ""}, {"name": "CB1 central brintnell", "lat": 55.8992823, "lng": -113.2547907, "info": ""}, {"name": "CB2 central brintnell", "lat": 55.9021995, "lng": -113.2555125, "info": ""}, {"name": "CB2A central brintnell", "lat": 55.9033222, "lng": -113.2579792, "info": ""}, {"name": "CB3 central brintnell", "lat": 55.9065946, "lng": -113.2535983, "info": "verified"}, {"name": "CB4 central brintnell", "lat": 55.9148961, "lng": -113.2466538, "info": "verified"}, {"name": "CB5 central brintnell", "lat": 55.9214476, "lng": -113.2478318, "info": "verified"}, {"name": "CB6 central brintnell", "lat": 55.9289761, "lng": -113.2479298, "info": "verified"}, {"name": "CB7 central brintnell", "lat": 55.9788276, "lng": -113.2661406, "info": ""}, {"name": "CB7A central brintnell", "lat": 55.9788957, "lng": -113.2807292, "info": ""}, {"name": "CB8 central brintnell", "lat": 55.9787561, "lng": -113.2504545, "info": ""}, {"name": "CB9 central brintnell", "lat": 55.9789539, "lng": -113.2345528, "info": ""}, {"name": "CB10 central brintnell", "lat": 55.9788213, "lng": -113.2194806, "info": ""}, {"name": "CB11 central brintnell", "lat": 55.9788877, "lng": -113.2043996, "info": ""}, {"name": "CB12 central brintnell", "lat": 55.9788848, "lng": -113.1883795, "info": ""}, {"name": "CB13 central brintnell", "lat": 55.9788864, "lng": -113.1731809, "info": ""}, {"name": "CB14 central brintnell", "lat": 55.9505964, "lng": -113.2464078, "info": ""}, {"name": "CB15 central brintnell", "lat": 55.9436013, "lng": -113.2464991, "info": ""}, {"name": "CB16 central brintnell", "lat": 55.9350354, "lng": -113.2456835, "info": "verified"}, {"name": "CB17 central brintnell", "lat": 55.9348784, "lng": -113.2319726, "info": "verified"}, {"name": "CB18 central brintnell", "lat": 55.9349968, "lng": -113.2198034, "info": "verified"}, {"name": "CB19 central brintnell", "lat": 55.934982, "lng": -113.2084436, "info": "verified"}, {"name": "CB20 central brintnell", "lat": 55.9316251, "lng": -113.1956574, "info": "verified"}, {"name": "CB21 central brintnell", "lat": 55.93169, "lng": -113.1841506, "info": "verified"}, {"name": "CB22 central brintnell", "lat": 55.9326787, "lng": -113.1748239, "info": "verified"}, {"name": "CB23 central brintnell", "lat": 55.935733, "lng": -113.1657464, "info": "verified"}, {"name": "CB26 central brintnell", "lat": 55.9571595, "lng": -113.1349727, "info": "verified"}, {"name": "CB27 central brintnell", "lat": 55.9629063, "lng": -113.127306, "info": "verified"}, {"name": "CB28 central brintnell", "lat": 55.9704916, "lng": -113.1188711, "info": "verified"}, {"name": "CB29 central brintnell", "lat": 55.9755644, "lng": -113.1175553, "info": ""}, {"name": "CB30 central brintnell", "lat": 55.9829886, "lng": -113.1172722, "info": ""}, {"name": "CB31 central brintnell", "lat": 55.9862771, "lng": -113.117598, "info": ""}, {"name": "CB32 central brintnell", "lat": 55.9929459, "lng": -113.1175966, "info": ""}, {"name": "CB33 central brintnell", "lat": 56.0009855, "lng": -113.1175131, "info": ""}, {"name": "CB37 central brintnell", "lat": 56.0076418, "lng": -113.1175948, "info": ""}, {"name": "CB38 central brintnell", "lat": 56.0131795, "lng": -113.1164446, "info": ""}, {"name": "CB39 central brintnell", "lat": 56.0198933, "lng": -113.1151345, "info": ""}, {"name": "CB40 central brintnell", "lat": 56.0280126, "lng": -113.1156271, "info": ""}, {"name": "CB41 central brintnell", "lat": 56.0360102, "lng": -113.112366, "info": ""}, {"name": "CB42 central brintnell", "lat": 56.0434593, "lng": -113.1105633, "info": ""}, {"name": "CB43 central brintnell", "lat": 56.0517628, "lng": -113.1107714, "info": ""}, {"name": "DW9 driftwood", "lat": 55.7968311, "lng": -113.4230693, "info": ""}, {"name": "DW10 driftwood", "lat": 55.8043774, "lng": -113.4639125, "info": ""}, {"name": "DW13 driftwood", "lat": 55.8193, "lng": -113.506, "info": ""}, {"name": "EB1 east brintnell", "lat": 56.0682913, "lng": -113.0138166, "info": ""}, {"name": "EB2 east brintnell", "lat": 56.0594519, "lng": -113.0167731, "info": ""}, {"name": "GDL1 goodlow", "lat": 56.3144383, "lng": -113.8586277, "info": ""}, {"name": "GDL2 goodlow", "lat": 56.3103909, "lng": -113.847282, "info": ""}, {"name": "GDL3 goodlow", "lat": 56.3167294, "lng": -113.8766156, "info": ""}, {"name": "HT1 horsetail", "lat": 56.0555418, "lng": -113.441755, "info": ""}, {"name": "HT2 horsetail", "lat": 56.0555451, "lng": -113.4248351, "info": ""}, {"name": "HT3 horsetail", "lat": 56.0554005, "lng": -113.4083119, "info": ""}, {"name": "HT4 horsetail", "lat": 56.0553175, "lng": -113.3909941, "info": ""}, {"name": "HT5 horsetail", "lat": 56.0554641, "lng": -113.374202, "info": ""}, {"name": "HT6 horsetail", "lat": 56.0556666, "lng": -113.3570343, "info": ""}, {"name": "K1", "lat": 55.9678094, "lng": -113.3421877, "info": ""}, {"name": "K2", "lat": 55.9355993, "lng": -113.3473369, "info": ""}, {"name": "NB1 north brintnell", "lat": 56.1428364, "lng": -113.2869273, "info": ""}, {"name": "NB2 north brintnell", "lat": 56.1428356, "lng": -113.2682766, "info": ""}, {"name": "NB3 north brintnell", "lat": 56.142747, "lng": -113.2506958, "info": ""}, {"name": "NB4 north brintnell", "lat": 56.1426576, "lng": -113.2352544, "info": ""}, {"name": "NB5 north brintnell", "lat": 56.1415437, "lng": -113.2186783, "info": ""}, {"name": "NB6 north brintnell", "lat": 56.1370379, "lng": -113.2115558, "info": ""}, {"name": "NB7 north brintnell", "lat": 56.1370388, "lng": -113.2017373, "info": "inside 7-27 plant"}, {"name": "NB8 north brintnell", "lat": 56.1370079, "lng": -113.1901759, "info": "verified"}, {"name": "NB9 north brintnell", "lat": 56.1370217, "lng": -113.1805798, "info": ""}, {"name": "NB10 north brintnell", "lat": 56.1369692, "lng": -113.1700521, "info": ""}, {"name": "NB11 north brintnell", "lat": 56.137116, "lng": -113.1598074, "info": ""}, {"name": "NB12 north brintnell", "lat": 56.1370105, "lng": -113.1494901, "info": ""}, {"name": "NB13 north brintnell", "lat": 56.1368903, "lng": -113.1393068, "info": ""}, {"name": "NB14 north brintnell", "lat": 56.1369176, "lng": -113.128739, "info": ""}, {"name": "NB15 north brintnell", "lat": 56.1370114, "lng": -113.1186205, "info": ""}, {"name": "NB16 north brintnell", "lat": 56.1369718, "lng": -113.1078734, "info": ""}, {"name": "NB17 north brintnell", "lat": 56.1370793, "lng": -113.0976672, "info": ""}, {"name": "NB18 north brintnell", "lat": 56.1369197, "lng": -113.0870454, "info": ""}, {"name": "NB19 north brintnell", "lat": 56.1370969, "lng": -113.0765832, "info": ""}, {"name": "NB20 north brintnell", "lat": 56.1369645, "lng": -113.0670317, "info": ""}, {"name": "NB21 north brintnell", "lat": 56.1369849, "lng": -113.0565379, "info": ""}, {"name": "NB22 north brintnell", "lat": 56.1371057, "lng": -113.0462824, "info": ""}, {"name": "NB23 north brintnell", "lat": 56.13704, "lng": -113.0359764, "info": ""}, {"name": "NB24 north brintnell", "lat": 56.1369594, "lng": -113.0254235, "info": ""}, {"name": "NB25 north brintnell", "lat": 56.1366806, "lng": -113.0152814, "info": ""}, {"name": "NB26 north brintnell", "lat": 56.1365493, "lng": -113.0051334, "info": ""}, {"name": "NB27 north brintnell", "lat": 56.1367616, "lng": -112.9946794, "info": ""}, {"name": "NB28 north brintnell", "lat": 56.1365868, "lng": -112.9845007, "info": ""}, {"name": "NB29 north brintnell", "lat": 56.1367636, "lng": -112.973954, "info": ""}, {"name": "NB30 north brintnell", "lat": 56.1366872, "lng": -112.9635249, "info": ""}, {"name": "NB31 north brintnell", "lat": 56.1366087, "lng": -112.9524905, "info": ""}, {"name": "NB32 north brintnell", "lat": 56.1368914, "lng": -112.9424159, "info": ""}, {"name": "NB33 north brintnell", "lat": 56.1367972, "lng": -112.9322453, "info": ""}, {"name": "NB34 north brintnell", "lat": 56.1366653, "lng": -112.9224217, "info": ""}, {"name": "NB35 north brintnell", "lat": 56.1366273, "lng": -112.9118674, "info": ""}, {"name": "NB36 north brintnell", "lat": 56.1367203, "lng": -112.901813, "info": ""}, {"name": "NB37 north brintnell", "lat": 56.136605, "lng": -112.8913202, "info": ""}, {"name": "NB38 north brintnell", "lat": 56.1366131, "lng": -112.8809795, "info": ""}, {"name": "NB39 north brintnell", "lat": 56.1365342, "lng": -112.8707779, "info": ""}, {"name": "NB40 north brintnell", "lat": 56.1369821, "lng": -112.8607697, "info": ""}, {"name": "NB46 north brintnell", "lat": 56.1182161, "lng": -113.0172368, "info": ""}, {"name": "NB47 north brintnell", "lat": 56.1119331, "lng": -113.0164761, "info": ""}, {"name": "NB48 north brintnell", "lat": 56.1058103, "lng": -113.0158099, "info": ""}, {"name": "NB49 north brintnell", "lat": 56.0994215, "lng": -113.015145, "info": ""}, {"name": "NB50 north brintnell", "lat": 56.092723, "lng": -113.0142866, "info": ""}, {"name": "NB51 north brintnell", "lat": 56.0845289, "lng": -113.0134323, "info": ""}, {"name": "NB52 north brintnell", "lat": 56.0763324, "lng": -113.0126721, "info": ""}, {"name": "NE1(?) north east", "lat": 56.1778563, "lng": -113.0542014, "info": ""}, {"name": "NE2 north east", "lat": 56.1778951, "lng": -113.0412079, "info": ""}, {"name": "NE3 north east", "lat": 56.1778551, "lng": -113.027614, "info": ""}, {"name": "NE4 north east", "lat": 56.1778298, "lng": -113.0152965, "info": ""}, {"name": "NE5 north east", "lat": 56.1779387, "lng": -113.0014909, "info": ""}, {"name": "NE6 north east", "lat": 56.1779146, "lng": -112.9884899, "info": ""}, {"name": "NE7 north east", "lat": 56.1780251, "lng": -112.975215, "info": ""}, {"name": "NE8 north east", "lat": 56.1780295, "lng": -112.9616599, "info": ""}, {"name": "NE9 north east", "lat": 56.1778006, "lng": -112.9486445, "info": ""}, {"name": "NE10 north east", "lat": 56.1777752, "lng": -112.935627, "info": ""}, {"name": "NE11 north east", "lat": 56.1777896, "lng": -112.9222141, "info": ""}, {"name": "NE12 north east", "lat": 56.1777623, "lng": -112.9095537, "info": ""}, {"name": "NE13 north east", "lat": 56.1778446, "lng": -112.8960143, "info": ""}, {"name": "NE14 north east", "lat": 56.177872, "lng": -112.8830857, "info": ""}, {"name": "NE15 north east", "lat": 56.1779275, "lng": -112.8697371, "info": ""}, {"name": "NE16 north east", "lat": 56.1778729, "lng": -112.8568036, "info": ""}, {"name": "NE17 north east", "lat": 56.1778593, "lng": -112.8434287, "info": ""}, {"name": "NE18 north east", "lat": 56.1778051, "lng": -112.8303156, "info": ""}, {"name": "NE19 north east", "lat": 56.1778479, "lng": -112.8170742, "info": ""}, {"name": "NE20 north east", "lat": 56.1778628, "lng": -112.8039365, "info": ""}, {"name": "NE21 north east", "lat": 56.1778966, "lng": -112.7906096, "info": ""}, {"name": "NE22 north east", "lat": 56.1779259, "lng": -112.7775189, "info": ""}, {"name": "NE23 north east", "lat": 56.1778174, "lng": -112.7687449, "info": ""}, {"name": "NE24 north east", "lat": 56.1779638, "lng": -112.7509071, "info": ""}, {"name": "NE50 north east", "lat": 56.2134437, "lng": -113.0542265, "info": ""}, {"name": "NE51 north east", "lat": 56.2130777, "lng": -113.0412476, "info": ""}, {"name": "NE52 north east", "lat": 56.2130967, "lng": -113.0279652, "info": ""}, {"name": "NE53 north east", "lat": 56.2131206, "lng": -113.0149609, "info": ""}, {"name": "NE54 north east", "lat": 56.2130554, "lng": -113.0017449, "info": ""}, {"name": "NE55 north east", "lat": 56.2131337, "lng": -112.9884369, "info": ""}, {"name": "NE56 north east", "lat": 56.2131596, "lng": -112.9755046, "info": ""}, {"name": "NE57 north east", "lat": 56.2131512, "lng": -112.9621285, "info": ""}, {"name": "NE58 north east", "lat": 56.2131619, "lng": -112.9487381, "info": ""}, {"name": "NE59 north east", "lat": 56.2131314, "lng": -112.9358572, "info": ""}, {"name": "NE60 north east", "lat": 56.2131196, "lng": -112.9225696, "info": ""}, {"name": "NE61 north east", "lat": 56.2131755, "lng": -112.9096963, "info": ""}, {"name": "NE62 north east", "lat": 56.2131523, "lng": -112.8989031, "info": ""}, {"name": "NE63 north east", "lat": 56.2131418, "lng": -112.8835409, "info": ""}, {"name": "NE64 north east", "lat": 56.2131297, "lng": -112.869845, "info": ""}, {"name": "NE65 north east", "lat": 56.2131001, "lng": -112.8568423, "info": ""}, {"name": "NE66 north east", "lat": 56.2131183, "lng": -112.843474, "info": ""}, {"name": "NE67 north east", "lat": 56.2128941, "lng": -112.8304084, "info": ""}, {"name": "NE68 north east", "lat": 56.213147, "lng": -112.8171056, "info": ""}, {"name": "NE69 north east", "lat": 56.213217, "lng": -112.8041099, "info": ""}, {"name": "NHT3 north horsetail", "lat": 56.0857559, "lng": -113.3947783, "info": ""}, {"name": "NHT3A north horsetail", "lat": 56.0818787, "lng": -113.4011112, "info": "verified"}, {"name": "NHT3B north horsetail", "lat": 56.0877382, "lng": -113.3960393, "info": "verified"}, {"name": "NHT4 north horsetail", "lat": 56.0850197, "lng": -113.388219, "info": ""}, {"name": "NHT5 north horsetail", "lat": 56.0758305, "lng": -113.3394938, "info": ""}, {"name": "NHT6 north horsetail", "lat": 56.0806509, "lng": -113.3378017, "info": ""}, {"name": "NHT7 north horsetail", "lat": 56.0864144, "lng": -113.342295, "info": ""}, {"name": "NHT8 north horsetail", "lat": 56.0916543, "lng": -113.3389105, "info": ""}, {"name": "NHT9 LACT north horsetail", "lat": 56.0979321, "lng": -113.3378607, "info": ""}, {"name": "NHT10 north horsetail", "lat": 56.0946787, "lng": -113.5029682, "info": ""}, {"name": "NHT11 north horsetail", "lat": 56.096594, "lng": -113.4693209, "info": ""}, {"name": "NHT11 LACT north horsetail", "lat": 56.0963153, "lng": -113.4835421, "info": ""}, {"name": "NHT12 north horsetail", "lat": 56.0888491, "lng": -113.5197705, "info": ""}, {"name": "NHT13 north horsetail", "lat": 56.0762757, "lng": -113.5637323, "info": ""}, {"name": "NHT14 north horsetail", "lat": 56.0833702, "lng": -113.5561057, "info": ""}, {"name": "NHT15 north horsetail", "lat": 56.0913934, "lng": -113.5556646, "info": ""}, {"name": "NHT16 north horsetail", "lat": 56.0997867, "lng": -113.5564406, "info": ""}, {"name": "NHT17 north horsetail", "lat": 56.1073742, "lng": -113.5558862, "info": ""}, {"name": "NW1 north west", "lat": 56.1735377, "lng": -113.0672284, "info": ""}, {"name": "NW2 north west", "lat": 56.1734862, "lng": -113.0803967, "info": ""}, {"name": "NW3 north west", "lat": 56.1735871, "lng": -113.0943479, "info": ""}, {"name": "NW4 north west", "lat": 56.1735137, "lng": -113.106521, "info": ""}, {"name": "NW5 north west", "lat": 56.1739071, "lng": -113.1195377, "info": ""}, {"name": "NW6 north west", "lat": 56.1735512, "lng": -113.1330187, "info": ""}, {"name": "NW7 north west", "lat": 56.1580532, "lng": -113.1465384, "info": ""}, {"name": "NW8 north west", "lat": 56.1579929, "lng": -113.1594436, "info": ""}, {"name": "NW9 north west", "lat": 56.1579937, "lng": -113.1728597, "info": ""}, {"name": "NW10 north west", "lat": 56.1579407, "lng": -113.1857779, "info": ""}, {"name": "NW11 north west", "lat": 56.1579331, "lng": -113.1990031, "info": ""}, {"name": "NW12 north west", "lat": 56.1578789, "lng": -113.213514, "info": ""}, {"name": "NW13 north west", "lat": 56.1578789, "lng": -113.2253227, "info": ""}, {"name": "NW17 north west", "lat": 56.1944718, "lng": -113.0583422, "info": ""}, {"name": "NW18 north west", "lat": 56.2014485, "lng": -113.0585296, "info": ""}, {"name": "NW19 north west", "lat": 56.2085245, "lng": -113.0586666, "info": ""}, {"name": "NW20 north west", "lat": 56.2119848, "lng": -113.0618865, "info": ""}, {"name": "PR1 peerless", "lat": 55.8757495, "lng": -113.3003156, "info": ""}, {"name": "PR2 peerless", "lat": 55.8767794, "lng": -113.3139639, "info": ""}, {"name": "PR3 peerless", "lat": 55.8759697, "lng": -113.3259092, "info": ""}, {"name": "PR4 peerless", "lat": 55.8475902, "lng": -113.3214877, "info": ""}, {"name": "PR5 peerless", "lat": 55.8423023, "lng": -113.3276147, "info": ""}, {"name": "PR6 peerless", "lat": 55.8561474, "lng": -113.3207398, "info": ""}, {"name": "PR7 peerless", "lat": 55.8635365, "lng": -113.3216372, "info": ""}, {"name": "SB1 south brintnell", "lat": 55.9751788, "lng": -113.4418799, "info": ""}, {"name": "SB2 south brintnell", "lat": 55.9767628, "lng": -113.4309266, "info": ""}, {"name": "SB3 south brintnell", "lat": 55.9753425, "lng": -113.4252463, "info": ""}, {"name": "SB3A south brintnell", "lat": 55.9772696, "lng": -113.4035249, "info": ""}, {"name": "SB4 south brintnell", "lat": 55.9706852, "lng": -113.4086558, "info": ""}, {"name": "SB5 south brintnell", "lat": 55.9741289, "lng": -113.4018521, "info": ""}, {"name": "SB6 south brintnell", "lat": 55.9697735, "lng": -113.3953256, "info": ""}, {"name": "SB7 south brintnell", "lat": 55.9679726, "lng": -113.3965123, "info": ""}, {"name": "SB11 south brintnell", "lat": 55.9670922, "lng": -113.3836432, "info": ""}, {"name": "SB12 south brintnell", "lat": 55.9660814, "lng": -113.3793532, "info": ""}, {"name": "SB13 south brintnell", "lat": 55.9674198, "lng": -113.3692865, "info": ""}, {"name": "SB14 south brintnell", "lat": 55.9670397, "lng": -113.3573217, "info": ""}, {"name": "SB15 south brintnell", "lat": 55.9678986, "lng": -113.3502417, "info": ""}, {"name": "SB16 south brintnell", "lat": 55.9670569, "lng": -113.3415574, "info": ""}, {"name": "SB17 south brintnell", "lat": 55.9725706, "lng": -113.3424362, "info": ""}, {"name": "SB18 south brintnell", "lat": 55.9721368, "lng": -113.3276937, "info": ""}, {"name": "SB19 south brintnell", "lat": 55.9766061, "lng": -113.3274269, "info": "verified"}, {"name": "SB20 south brintnell", "lat": 55.982141, "lng": -113.3275841, "info": ""}, {"name": "SB21 south brintnell", "lat": 55.9863951, "lng": -113.330413, "info": ""}, {"name": "SB22 south brintnell", "lat": 55.9623405, "lng": -113.3555134, "info": ""}, {"name": "SB23 south brintnell", "lat": 55.9476003, "lng": -113.3559813, "info": ""}, {"name": "SB24 south brintnell", "lat": 55.9603096, "lng": -113.3400736, "info": ""}, {"name": "SB25 south brintnell", "lat": 55.9550712, "lng": -113.3377365, "info": ""}, {"name": "SB26 south brintnell", "lat": 55.9479998, "lng": -113.3401952, "info": ""}, {"name": "SB27 south brintnell", "lat": 55.9417789, "lng": -113.3400806, "info": ""}, {"name": "SB28 south brintnell", "lat": 55.9354536, "lng": -113.3438295, "info": ""}, {"name": "SB29 south brintnell", "lat": 55.933781, "lng": -113.3411063, "info": ""}, {"name": "SB30 south brintnell", "lat": 55.9353493, "lng": -113.3559208, "info": ""}, {"name": "SB31 south brintnell", "lat": 55.9365743, "lng": -113.3687125, "info": ""}, {"name": "SB32 south brintnell", "lat": 55.9352967, "lng": -113.381811, "info": ""}, {"name": "SB33 south brintnell", "lat": 55.9354074, "lng": -113.3949173, "info": ""}, {"name": "SB34 south brintnell", "lat": 55.9354612, "lng": -113.4082229, "info": ""}, {"name": "SB35 south brintnell", "lat": 55.9350728, "lng": -113.4189427, "info": ""}, {"name": "SB36 south brintnell", "lat": 55.9352402, "lng": -113.4284783, "info": ""}, {"name": "SB37 south brintnell", "lat": 55.9352916, "lng": -113.4404192, "info": ""}, {"name": "SB38 south brintnell", "lat": 55.9354032, "lng": -113.4497579, "info": ""}, {"name": "SB39 south brintnell", "lat": 55.9354041, "lng": -113.4605684, "info": ""}, {"name": "SB40 south brintnell", "lat": 55.9353484, "lng": -113.4710812, "info": ""}, {"name": "SB41 south brintnell", "lat": 55.9242939, "lng": -113.3403399, "info": ""}, {"name": "SB42 south brintnell", "lat": 55.9171531, "lng": -113.3404587, "info": ""}, {"name": "SB43 south brintnell", "lat": 55.9098725, "lng": -113.3426408, "info": ""}, {"name": "SB46 south brintnell", "lat": 55.9368471, "lng": -113.4835784, "info": ""}, {"name": "SB50 south brintnell", "lat": 55.9756353, "lng": -113.4518121, "info": ""}, {"name": "SB51 south brintnell", "lat": 55.9763179, "lng": -113.4625554, "info": ""}, {"name": "SB52 south brintnell", "lat": 55.9775656, "lng": -113.4710719, "info": ""}, {"name": "SB53 south brintnell", "lat": 55.9751285, "lng": -113.4824188, "info": ""}, {"name": "SB54 south brintnell", "lat": 55.9732577, "lng": -113.4906236, "info": ""}, {"name": "SB55 south brintnell", "lat": 55.9716131, "lng": -113.4962967, "info": ""}, {"name": "SE1 south east", "lat": 56.1223967, "lng": -113.3382369, "info": ""}, {"name": "SE2 south east", "lat": 56.1224558, "lng": -113.3255077, "info": ""}, {"name": "SE3 south east", "lat": 56.1222049, "lng": -113.3118739, "info": ""}, {"name": "SE4 south east", "lat": 56.1224619, "lng": -113.3001863, "info": ""}, {"name": "SE5 south east", "lat": 56.1258463, "lng": -113.2868789, "info": ""}, {"name": "SE6 south east", "lat": 56.1255901, "lng": -113.2733524, "info": ""}, {"name": "SE7 south east", "lat": 56.1257161, "lng": -113.2605074, "info": ""}, {"name": "SE8 south east", "lat": 56.1255868, "lng": -113.2470881, "info": ""}, {"name": "SE9 south east", "lat": 56.1256527, "lng": -113.2342596, "info": ""}, {"name": "SE10.5 south east", "lat": 56.1256962, "lng": -113.2209766, "info": ""}, {"name": "SE11 south east", "lat": 56.0878724, "lng": -113.2869306, "info": ""}, {"name": "SE12(?) south east", "lat": 56.0903305, "lng": -113.2620246, "info": ""}, {"name": "SE13(?) south east", "lat": 56.0901557, "lng": -113.2484203, "info": ""}, {"name": "SE14(?) south east", "lat": 56.0901142, "lng": -113.2347255, "info": ""}, {"name": "SE15(?) south east", "lat": 56.0901142, "lng": -113.2347255, "info": ""}, {"name": "SE16 south east", "lat": 56.09002, "lng": -113.2212008, "info": ""}, {"name": "SE18 south east", "lat": 56.0934185, "lng": -113.195026, "info": "verified"}, {"name": "SE19 south east", "lat": 56.0933562, "lng": -113.1819155, "info": "verified"}, {"name": "SE20 south east", "lat": 56.0931663, "lng": -113.1685872, "info": "verified"}, {"name": "SE21 south east", "lat": 56.0935663, "lng": -113.1558043, "info": "verified"}, {"name": "SE22 south east", "lat": 56.0934354, "lng": -113.1428827, "info": "verified"}, {"name": "SE23 south east", "lat": 56.0934674, "lng": -113.1299586, "info": "verified"}, {"name": "SE24 south east", "lat": 56.0935307, "lng": -113.116352, "info": ""}, {"name": "SE24-1 south east", "lat": 56.0846863, "lng": -113.1124978, "info": ""}, {"name": "SE25 south east", "lat": 56.0934592, "lng": -113.1037828, "info": ""}, {"name": "SE26 south east", "lat": 56.0932711, "lng": -113.0906273, "info": ""}, {"name": "SE27 south east", "lat": 56.093232, "lng": -113.077733, "info": "verified"}, {"name": "SE28 south east", "lat": 56.093271, "lng": -113.0648979, "info": ""}, {"name": "SE29 south east", "lat": 56.0679235, "lng": -113.1115613, "info": ""}, {"name": "SE30 south east", "lat": 56.0598678, "lng": -113.1110504, "info": ""}, {"name": "SL1 sandy", "lat": 55.8834193, "lng": -113.2883236, "info": "verified"}, {"name": "SL2 sandy", "lat": 55.8823303, "lng": -113.2815884, "info": ""}, {"name": "SL3 sandy", "lat": 55.883453, "lng": -113.271273, "info": ""}, {"name": "SL4 sandy", "lat": 55.8826303, "lng": -113.2587203, "info": ""}, {"name": "SL5 sandy", "lat": 55.8794089, "lng": -113.2524168, "info": ""}, {"name": "SL6 sandy", "lat": 55.8763635, "lng": -113.2442024, "info": ""}, {"name": "SL7 sandy", "lat": 55.8804212, "lng": -113.2308387, "info": ""}, {"name": "SL9 sandy", "lat": 55.8943797, "lng": -113.2123102, "info": ""}, {"name": "SL10 sandy", "lat": 55.894275, "lng": -113.2031056, "info": ""}, {"name": "SL10A sandy", "lat": 55.8904361, "lng": -113.1908864, "info": ""}, {"name": "SL11 sandy", "lat": 55.8906392, "lng": -113.1847835, "info": ""}, {"name": "SL12 sandy", "lat": 55.8888644, "lng": -113.1749734, "info": ""}, {"name": "SW1 south west", "lat": 56.0562196, "lng": -113.4611325, "info": ""}, {"name": "SW2 south west", "lat": 56.0590064, "lng": -113.4746593, "info": ""}, {"name": "SW3 south west", "lat": 56.0562101, "lng": -113.4749307, "info": ""}, {"name": "SW4 south west", "lat": 56.0564156, "lng": -113.4972766, "info": "verified"}, {"name": "SW4.5 south west pigging station", "lat": 56.0568936, "lng": -113.4951331, "info": ""}, {"name": "SW5 south west", "lat": 56.0712494, "lng": -113.4517138, "info": ""}, {"name": "SW6 south west", "lat": 56.0706035, "lng": -113.4411644, "info": ""}, {"name": "SW7 south west", "lat": 56.0706284, "lng": -113.4298379, "info": ""}, {"name": "SW8 south west", "lat": 56.0823262, "lng": -113.4581598, "info": ""}, {"name": "SW9 south west", "lat": 56.0968765, "lng": -113.4457055, "info": ""}, {"name": "SW10 south west", "lat": 56.096866, "lng": -113.4425483, "info": ""}, {"name": "SW11 south west", "lat": 56.0969501, "lng": -113.4281411, "info": ""}, {"name": "SW12 south west", "lat": 56.0987842, "lng": -113.4156912, "info": ""}, {"name": "SW13 south west", "lat": 56.098884, "lng": -113.4033333, "info": ""}, {"name": "SW14 south west", "lat": 56.0998695, "lng": -113.3893327, "info": ""}, {"name": "SW15 south west", "lat": 56.0997945, "lng": -113.3768872, "info": ""}, {"name": "SW16 south west", "lat": 56.1137446, "lng": -113.3643697, "info": ""}, {"name": "SW18 south west", "lat": 56.1081662, "lng": -113.4592709, "info": ""}, {"name": "SW19 south west", "lat": 56.0563813, "lng": -113.5115941, "info": "verified"}, {"name": "SW20 south west", "lat": 56.0565261, "lng": -113.5236705, "info": "verified"}, {"name": "SW21 south west", "lat": 56.0565256, "lng": -113.5365688, "info": "verified"}, {"name": "SW22 south west", "lat": 56.0566326, "lng": -113.5493843, "info": "verified"}, {"name": "SW23 south west", "lat": 56.0565703, "lng": -113.5615486, "info": "verified"}, {"name": "SW24 south west", "lat": 56.0560926, "lng": -113.562167, "info": ""}, {"name": "SW25 south west", "lat": 56.0988425, "lng": -113.5115244, "info": ""}, {"name": "SW26 south west", "lat": 56.0939494, "lng": -113.5029768, "info": ""}, {"name": "SW27 south west", "lat": 56.0874886, "lng": -113.4944487, "info": ""}, {"name": "SW28 south west", "lat": 56.1046314, "lng": -113.494673, "info": ""}, {"name": "SW29 south west", "lat": 56.1102687, "lng": -113.4470503, "info": ""}, {"name": "SW30 south west", "lat": 56.1102456, "lng": -113.4344158, "info": ""}, {"name": "SW31 south west", "lat": 56.1102834, "lng": -113.4214296, "info": ""}, {"name": "SW32 south west", "lat": 56.112012, "lng": -113.4088435, "info": ""}, {"name": "SW33 south west", "lat": 56.1131086, "lng": -113.3961514, "info": ""}, {"name": "SW34 south west", "lat": 56.1132954, "lng": -113.38351, "info": ""}, {"name": "SW35 south west", "lat": 56.1132918, "lng": -113.3693135, "info": ""}, {"name": "SW36 south west", "lat": 56.1332228, "lng": -113.4512867, "info": ""}, {"name": "SW37 south west", "lat": 56.0703529, "lng": -113.4594923, "info": ""}, {"name": "SW38 south west", "lat": 56.135672, "lng": -113.3659972, "info": ""}, {"name": "SW39 south west", "lat": 56.1459407, "lng": -113.332319, "info": ""}, {"name": "SW40 south west", "lat": 56.1454587, "lng": -113.3192336, "info": ""}, {"name": "SW41 south west", "lat": 56.1460068, "lng": -113.3325662, "info": ""}, {"name": "SW42 south west", "lat": 56.1459478, "lng": -113.3196965, "info": ""}, {"name": "SW43 south west", "lat": 56.1457679, "lng": -113.3054327, "info": ""}, {"name": "SW44 south west", "lat": 56.1578391, "lng": -113.2663143, "info": ""}, {"name": "SW45 south west", "lat": 56.1537741, "lng": -113.2510828, "info": ""}, {"name": "WB1 west brintnell", "lat": 56.0587178, "lng": -113.5327411, "info": "verified"}, {"name": "WB2 west brintnell", "lat": 56.0588802, "lng": -113.5195456, "info": "verified"}, {"name": "WB3 west brintnell", "lat": 56.0587672, "lng": -113.5054619, "info": "verified"}, {"name": "WB4 west brintnell", "lat": 56.0592285, "lng": -113.4934795, "info": "verified"}, {"name": "WB5 west brintnell", "lat": 56.0588135, "lng": -113.4819876, "info": ""}, {"name": "WB6 west brintnell", "lat": 56.0589432, "lng": -113.4611194, "info": ""}, {"name": "WB7 west brintnell", "lat": 56.0588972, "lng": -113.4480262, "info": ""}, {"name": "WB8 west brintnell", "lat": 56.0586775, "lng": -113.4348324, "info": ""}, {"name": "WB9 west brintnell", "lat": 56.0446551, "lng": -113.4733753, "info": ""}, {"name": "WB10 west brintnell", "lat": 56.0400271, "lng": -113.5623174, "info": ""}, {"name": "WB11 west brintnell", "lat": 56.0398846, "lng": -113.5476213, "info": ""}, {"name": "WB12 west brintnell", "lat": 56.0396681, "lng": -113.5276857, "info": ""}, {"name": "WB13 west brintnell", "lat": 56.0326718, "lng": -113.5265407, "info": ""}, {"name": "WB14 west brintnell", "lat": 56.0303876, "lng": -113.5275645, "info": ""}, {"name": "WB14A west brintnell", "lat": 56.0253907, "lng": -113.5282066, "info": ""}, {"name": "WB15 west brintnell", "lat": 56.0289973, "lng": -113.5203475, "info": ""}, {"name": "WB16 west brintnell", "lat": 56.0331071, "lng": -113.5197991, "info": ""}, {"name": "WB17(?) west brintnell", "lat": 56.0314196, "lng": -113.5097061, "info": ""}, {"name": "WB18 west brintnell", "lat": 56.0333346, "lng": -113.5065803, "info": ""}, {"name": "WB19(?) west brintnell", "lat": 56.0288923, "lng": -113.5032818, "info": ""}, {"name": "WB20 west brintnell", "lat": 56.0320777, "lng": -113.4900134, "info": ""}, {"name": "WB21 west brintnell", "lat": 56.0314732, "lng": -113.4837919, "info": ""}, {"name": "WB22 west brintnell", "lat": 56.032075, "lng": -113.477261, "info": ""}, {"name": "WB23 west brintnell", "lat": 56.0325775, "lng": -113.4673432, "info": ""}, {"name": "WB24 west brintnell", "lat": 56.031629, "lng": -113.4650449, "info": ""}, {"name": "WB25 west brintnell", "lat": 56.0334518, "lng": -113.4552385, "info": ""}, {"name": "WB26 west brintnell", "lat": 56.0322669, "lng": -113.4443969, "info": ""}, {"name": "WB27 west brintnell", "lat": 56.0289822, "lng": -113.4337728, "info": ""}, {"name": "WB28 west brintnell", "lat": 56.033405, "lng": -113.4346449, "info": ""}, {"name": "WB31 west brintnell", "lat": 56.0172626, "lng": -113.509864, "info": ""}, {"name": "WB32 west brintnell", "lat": 56.0177137, "lng": -113.4929064, "info": ""}, {"name": "WB33 west brintnell", "lat": 56.0174247, "lng": -113.4842559, "info": ""}, {"name": "WB34 west brintnell", "lat": 56.0245329, "lng": -113.4836255, "info": ""}, {"name": "WB35 west brintnell", "lat": 56.023892, "lng": -113.4691877, "info": ""}, {"name": "WB36 west brintnell", "lat": 56.0188281, "lng": -113.4675596, "info": ""}, {"name": "WB37 west brintnell", "lat": 56.0027582, "lng": -113.4808942, "info": ""}, {"name": "WB38 west brintnell", "lat": 56.0010142, "lng": -113.4726337, "info": ""}, {"name": "WB39 west brintnell", "lat": 55.9961199, "lng": -113.4594972, "info": ""}, {"name": "WB40 west brintnell", "lat": 55.9964449, "lng": -113.449228, "info": ""}, {"name": "WB41 west brintnell", "lat": 55.9983426, "lng": -113.4347315, "info": ""}, {"name": "WB42 west brintnell", "lat": 55.9949234, "lng": -113.4219108, "info": ""}, {"name": "WB43(?) west brintnell", "lat": 55.9942705, "lng": -113.4154791, "info": ""}, {"name": "WB44 west brintnell", "lat": 55.9866468, "lng": -113.5017845, "info": ""}, {"name": "WB45 west brintnell", "lat": 55.9903117, "lng": -113.4995548, "info": ""}, {"name": "WB46 west brintnell", "lat": 55.9954864, "lng": -113.5035017, "info": ""}, {"name": "WB49 west brintnell", "lat": 56.018823, "lng": -113.5276924, "info": ""}, {"name": "WB50 west brintnell", "lat": 56.0327442, "lng": -113.5740701, "info": ""}, {"name": "WB51 west brintnell", "lat": 56.0033211, "lng": -113.5183703, "info": ""}, {"name": "WDH0 woodenhouse", "lat": 56.4525708, "lng": -113.5959911, "info": ""}, {"name": "WDH1 woodenhouse", "lat": 56.4579849, "lng": -113.6025093, "info": ""}, {"name": "WDH2 woodenhouse", "lat": 56.4627269, "lng": -113.6026309, "info": ""}, {"name": "WDH3 woodenhouse", "lat": 56.4685826, "lng": -113.60276, "info": ""}, {"name": "WDH4 woodenhouse", "lat": 56.4739192, "lng": -113.6029319, "info": ""}, {"name": "WDH5 woodenhouse", "lat": 56.4789532, "lng": -113.6043219, "info": ""}, {"name": "WDH6 woodenhouse", "lat": 56.4839032, "lng": -113.6030581, "info": ""}, {"name": "WDH7 woodenhouse", "lat": 56.4891847, "lng": -113.6029368, "info": ""}, {"name": "WDH8 woodenhouse", "lat": 56.4943332, "lng": -113.6035375, "info": ""}, {"name": "WDH9 woodenhouse", "lat": 56.5000813, "lng": -113.6032935, "info": ""}, {"name": "WDH10 woodenhouse", "lat": 56.5046018, "lng": -113.6059386, "info": ""}, {"name": "WDH11 woodenhouse", "lat": 56.5091229, "lng": -113.6085278, "info": ""}, {"name": "WDH12 woodenhouse", "lat": 56.5091564, "lng": -113.617262, "info": ""}, {"name": "WDH13 woodenhouse", "lat": 56.5087904, "lng": -113.6266587, "info": ""}, {"name": "WDH14 woodenhouse", "lat": 56.503936, "lng": -113.6168994, "info": ""}, {"name": "WDH15 woodenhouse", "lat": 56.4971568, "lng": -113.6125635, "info": ""}, {"name": "WDH16 woodenhouse", "lat": 56.4914103, "lng": -113.6119015, "info": ""}, {"name": "WDH17 woodenhouse", "lat": 56.48769, "lng": -113.6115402, "info": ""}, {"name": "WDH18 woodenhouse", "lat": 56.4821095, "lng": -113.6122019, "info": ""}, {"name": "WDH19 woodenhouse", "lat": 56.509356, "lng": -113.5987659, "info": ""}, {"name": "WDH20 woodenhouse", "lat": 56.491679, "lng": -113.5842067, "info": ""}, {"name": "WDH21 woodenhouse", "lat": 56.4765948, "lng": -113.6108178, "info": ""}, {"name": "WDH25 woodenhouse", "lat": 56.4627065, "lng": -113.5934521, "info": ""}, {"name": "WDH26 woodenhouse", "lat": 56.4678508, "lng": -113.5927579, "info": ""}, {"name": "WDH27 woodenhouse", "lat": 56.4749113, "lng": -113.5939963, "info": ""}, {"name": "WDH28 woodenhouse", "lat": 56.4801546, "lng": -113.5935445, "info": ""}, {"name": "WDH29 woodenhouse", "lat": 56.4852006, "lng": -113.5920372, "info": ""}, {"name": "WDH30 woodenhouse", "lat": 56.4919128, "lng": -113.592757, "info": ""}, {"name": "WDH31 woodenhouse", "lat": 56.4959979, "lng": -113.5919119, "info": ""}, {"name": "WDH32 woodenhouse", "lat": 56.5012799, "lng": -113.5939546, "info": ""}, {"name": "WDH38 woodenhouse", "lat": 56.4804529, "lng": -113.5866821, "info": ""}, {"name": "WDH39 woodenhouse", "lat": 56.4854986, "lng": -113.5840901, "info": ""}, {"name": "WDH40 woodenhouse", "lat": 56.4975968, "lng": -113.5844912, "info": ""}, {"name": "WDH41 woodenhouse", "lat": 56.4971896, "lng": -113.6224928, "info": ""}, {"name": "WDH42 woodenhouse", "lat": 56.4909447, "lng": -113.6224309, "info": ""}, {"name": "WDH43 woodenhouse", "lat": 56.4851649, "lng": -113.6225492, "info": ""}, {"name": "WDH44 woodenhouse", "lat": 56.5036372, "lng": -113.6264163, "info": ""}, {"name": "WDH45 woodenhouse", "lat": 56.4938666, "lng": -113.6332631, "info": ""}, {"name": "WDH46 woodenhouse", "lat": 56.5012452, "lng": -113.5842575, "info": ""}, {"name": "WDH51 woodenhouse", "lat": 56.5093523, "lng": -113.6363043, "info": ""}, {"name": "WDH52 woodenhouse", "lat": 56.5134103, "lng": -113.6268433, "info": ""}, {"name": "WDH53 woodenhouse", "lat": 56.513644, "lng": -113.6181055, "info": ""}, {"name": "WDH54 woodenhouse", "lat": 56.5134111, "lng": -113.6102137, "info": ""}, {"name": "WDH56 woodenhouse", "lat": 56.5189257, "lng": -113.6037259, "info": ""}, {"name": "WDH57 woodenhouse", "lat": 56.5211471, "lng": -113.6095203, "info": ""}, {"name": "WDH59 woodenhouse", "lat": 56.5272539, "lng": -113.5887602, "info": ""}, {"name": "WDH60 woodenhouse", "lat": 56.5254925, "lng": -113.6000612, "info": ""}, {"name": "WDH73 woodenhouse", "lat": 56.5212936, "lng": -113.5917029, "info": ""}, {"name": "WDH75 woodenhouse", "lat": 56.4475504, "lng": -113.589482, "info": ""}, {"name": "Sand C woodenhouse", "lat": 56.4719256, "lng": -113.5433199, "info": ""}, {"name": "Laydown Yard woodenhouse", "lat": 56.4511872, "lng": -113.569746, "info": ""}, {"name": "10-9 Trucker desand woodenhouse", "lat": 56.4445018, "lng": -113.571135, "info": ""}, {"name": "Camp 10-9 woodenhouse", "lat": 56.4428979, "lng": -113.5726416, "info": ""}];
+
+let userLoc = null;
+let watchId = null;
+
+const searchEl = document.getElementById('search');
+const clearEl = document.getElementById('clear');
+const contentEl = document.getElementById('content');
+const readoutEl = document.getElementById('readout');
+const locBtn = document.getElementById('locBtn');
+const locStatus = document.getElementById('locStatus');
+const gpsDot = document.getElementById('gpsDot');
+
+function normalize(str) {
+  return str
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]/g, '');
+}
+function stripLeadingZeros(str) {
+  // strip leading zeros within digit runs, e.g. cb020 -> cb20
+  return str.replace(/0+(\d)/g, '$1');
+}
+WELLS.forEach(w => {
+  const n = normalize(w.name);
+  w._norm = n;
+  w._normNoZero = stripLeadingZeros(n);
+});
+
+function haversine(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function mapsUrl(lat, lng, origin) {
+  let url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`;
+  if (origin) url += `&origin=${origin.lat},${origin.lng}`;
+  return url;
+}
+
+function isIOSDevice() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
+// Opens the native Google Maps app directly (not the website).
+// iOS: custom URL scheme opens the Google Maps app if installed.
+// Android: the standard https link hands off to the Google Maps app.
+// No automatic fallback to the web version — that was causing both to open
+// at once on some phones, since iOS doesn't reliably report "I left the page"
+// in time (sometimes it shows an "Open in Google Maps?" confirmation first).
+function openGoogleMapsRoute(lat, lng, origin) {
+  if (isIOSDevice()) {
+    let appUrl = `comgooglemaps://?daddr=${lat},${lng}&directionsmode=driving`;
+    if (origin) appUrl += `&saddr=${origin.lat},${origin.lng}`;
+    window.location.href = appUrl;
+  } else {
+    window.location.href = mapsUrl(lat, lng, origin);
+  }
+}
+
+function highlight(name, query) {
+  if (!query) return escapeHtml(name);
+  const idx = name.toLowerCase().indexOf(query.toLowerCase());
+  if (idx === -1) return escapeHtml(name);
+  const before = escapeHtml(name.slice(0, idx));
+  const match = escapeHtml(name.slice(idx, idx + query.length));
+  const after = escapeHtml(name.slice(idx + query.length));
+  return `${before}<mark>${match}</mark>${after}`;
+}
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderCard(w, query) {
+  let distHtml = '';
+  if (userLoc) {
+    const d = haversine(userLoc.lat, userLoc.lng, w.lat, w.lng);
+    distHtml = `<div class="card-dist">${d < 1 ? Math.round(d*1000)+' m' : d.toFixed(1)+' km'} away</div>`;
+  }
+  const infoHtml = w.info ? `<div class="card-info">${escapeHtml(w.info)}</div>` : '';
+  return `
+    <div class="card">
+      <div class="card-main">
+        <div class="card-name">${highlight(w.name, query)}</div>
+        ${infoHtml}
+        ${distHtml}
+      </div>
+      <button class="go-btn" data-lat="${w.lat}" data-lng="${w.lng}">➜</button>
+    </div>
+  `;
+}
+
+// Route from the user's exact current position, fetched fresh at tap time.
+// NOTE: we navigate via location.href (not window.open) because iOS silently
+// blocks window.open() when it fires asynchronously after a geolocation callback.
+function routeFromHere(btn) {
+  const lat = parseFloat(btn.dataset.lat);
+  const lng = parseFloat(btn.dataset.lng);
+  const original = btn.textContent;
+
+  if (!navigator.geolocation) {
+    openGoogleMapsRoute(lat, lng);
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '⏳';
+
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const origin = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      openGoogleMapsRoute(lat, lng, origin);
+      btn.disabled = false;
+      btn.textContent = original;
+    },
+    () => {
+      // GPS denied/unavailable — fall back to letting Google Maps use its own current-location default
+      openGoogleMapsRoute(lat, lng);
+      btn.disabled = false;
+      btn.textContent = original;
+    },
+    { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
+  );
+}
+
+contentEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('.go-btn');
+  if (btn) routeFromHere(btn);
+});
+
+function render() {
+  const raw = searchEl.value.trim();
+  clearEl.classList.toggle('show', raw.length > 0);
+  const q = normalize(raw);
+  const qNoZero = stripLeadingZeros(q);
+
+  let results;
+  if (!q) {
+    results = [...WELLS];
+    if (userLoc) {
+      results.sort((a, b) => haversine(userLoc.lat, userLoc.lng, a.lat, a.lng) - haversine(userLoc.lat, userLoc.lng, b.lat, b.lng));
+    } else {
+      results = results.slice(0, 30);
+    }
+    readoutEl.innerHTML = userLoc
+      ? `Nearest sites to your location`
+      : `Type a well ID or asset name — e.g. <b>CB20</b>`;
+  } else {
+    results = WELLS.filter(w => w._norm.includes(q) || w._normNoZero.includes(qNoZero));
+    // prefix matches first
+    results.sort((a, b) => {
+      const aStarts = a._norm.startsWith(q) ? 0 : 1;
+      const bStarts = b._norm.startsWith(q) ? 0 : 1;
+      if (aStarts !== bStarts) return aStarts - bStarts;
+      if (userLoc) return haversine(userLoc.lat, userLoc.lng, a.lat, a.lng) - haversine(userLoc.lat, userLoc.lng, b.lat, b.lng);
+      return a.name.localeCompare(b.name);
+    });
+    readoutEl.innerHTML = results.length
+      ? `<b>${results.length}</b> match${results.length === 1 ? '' : 'es'} for "${escapeHtml(raw)}"`
+      : `No match for "${escapeHtml(raw)}"`;
+  }
+
+  if (!results.length) {
+    contentEl.innerHTML = `
+      <div class="empty">
+        <div class="big">🛰️</div>
+        <div>No site found for "${escapeHtml(raw)}"</div>
+        <div class="hint">Check spelling or try just part of the code</div>
+      </div>`;
+    return;
+  }
+
+  const label = q
+    ? ''
+    : `<div class="count-label">${userLoc ? 'NEAREST FIRST' : 'ALL SITES (first 30 — search to narrow)'}</div>`;
+  contentEl.innerHTML = label + `<div class="results">${results.map(w => renderCard(w, raw)).join('')}</div>`;
+}
+
+searchEl.addEventListener('input', render);
+clearEl.addEventListener('click', () => {
+  searchEl.value = '';
+  searchEl.focus();
+  render();
+});
+
+locBtn.addEventListener('click', () => {
+  if (!navigator.geolocation) {
+    locStatus.textContent = 'GPS not available';
+    return;
+  }
+  if (userLoc) {
+    // toggle off
+    userLoc = null;
+    locBtn.classList.remove('active');
+    gpsDot.classList.remove('on');
+    locStatus.textContent = '';
+    if (watchId) navigator.geolocation.clearWatch(watchId);
+    render();
+    return;
+  }
+  locStatus.textContent = 'Locating…';
+  watchId = navigator.geolocation.watchPosition(
+    pos => {
+      userLoc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      locBtn.classList.add('active');
+      gpsDot.classList.add('on');
+      locStatus.textContent = '';
+      render();
+    },
+    err => {
+      locStatus.textContent = 'GPS denied/unavailable';
+    },
+    { enableHighAccuracy: true, maximumAge: 5000 }
+  );
+});
+
+render();
+
+// ---------- Theme toggle (defaults to system preference) ----------
+const themeBtn = document.getElementById('themeBtn');
+const htmlEl = document.documentElement;
+const themeColorMeta = document.getElementById('themeColorMeta');
+const THEME_COLORS = { dark: '#0B0D10', light: '#EEF1F4' };
+
+function applyTheme(mode) {
+  if (mode === 'light') {
+    htmlEl.setAttribute('data-theme', 'light');
+    themeBtn.textContent = '☀️';
+  } else {
+    htmlEl.removeAttribute('data-theme');
+    themeBtn.textContent = '🌙';
+  }
+  themeColorMeta.setAttribute('content', THEME_COLORS[mode]);
+}
+
+let currentTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+applyTheme(currentTheme);
+
+themeBtn.addEventListener('click', () => {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  applyTheme(currentTheme);
+});
+
+// ---------- Add to Home Screen ----------
+const installBtn = document.getElementById('installBtn');
+const installModal = document.getElementById('installModal');
+const installBody = document.getElementById('installBody');
+const installClose = document.getElementById('installClose');
+
+function isIOS() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+function isStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
+function showIOSInstructions() {
+  installBody.innerHTML = `
+    <div class="step"><div class="step-num">1</div><div>Tap the <span class="icon-inline">⬆️ Share</span> icon in Safari's toolbar</div></div>
+    <div class="step"><div class="step-num">2</div><div>Scroll down and tap <b>"Add to Home Screen"</b></div></div>
+    <div class="step"><div class="step-num">3</div><div>Tap <b>"Add"</b> — the CNRL map icon will appear on your home screen</div></div>
+  `;
+  installModal.classList.add('show');
+}
+
+function showAndroidFallbackInstructions() {
+  installBody.innerHTML = `
+    <div class="step"><div class="step-num">1</div><div>Tap the <span class="icon-inline">⋮</span> menu in Chrome (top right)</div></div>
+    <div class="step"><div class="step-num">2</div><div>Tap <b>"Add to Home screen"</b> or <b>"Install app"</b></div></div>
+    <div class="step"><div class="step-num">3</div><div>Confirm — the CNRL map icon will appear on your home screen</div></div>
+  `;
+  installModal.classList.add('show');
+}
+
+installBtn.addEventListener('click', async () => {
+  if (isStandalone()) {
+    installBody.innerHTML = `<div class="step"><div>You're already using the installed app 👍</div></div>`;
+    installModal.classList.add('show');
+    return;
+  }
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    return;
+  }
+  if (isIOS()) {
+    showIOSInstructions();
+  } else {
+    showAndroidFallbackInstructions();
+  }
+});
+
+installClose.addEventListener('click', () => installModal.classList.remove('show'));
+installModal.addEventListener('click', (e) => {
+  if (e.target === installModal) installModal.classList.remove('show');
+});
+
+// ---------- Version check: compare running app vs the file currently deployed ----------
+const APP_VERSION = "2026.07.06-5";
+const updateBanner = document.getElementById('updateBanner');
+const updateBtn = document.getElementById('updateBtn');
+let updateAvailable = false;
+
+async function checkForUpdate() {
+  if (updateAvailable) return; // already showing, no need to keep checking
+  try {
+    const res = await fetch(location.pathname + '?_v=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) return;
+    const text = await res.text();
+    const match = text.match(/APP_VERSION:\s*(.+?)\s*-->/);
+    if (match && match[1] !== APP_VERSION) {
+      updateAvailable = true;
+      updateBanner.classList.add('show');
+    }
+  } catch (err) {
+    // offline or no signal — fail silently, this is a field app
+  }
+}
+
+updateBtn.addEventListener('click', () => {
+  window.location.href = location.pathname + '?_v=' + Date.now();
+});
+
+// Check shortly after load, then periodically for long shifts
+setTimeout(checkForUpdate, 3000);
+setInterval(checkForUpdate, 10 * 60 * 1000);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') checkForUpdate();
+});
+</script>
+</body>
+</html>
