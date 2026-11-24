@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- APP_VERSION: 2026.07.06-5 -->
+<!-- APP_VERSION: 2026.11.24-6 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -285,6 +285,9 @@
   }
   #locBtn.active { color: var(--green); border-color: rgba(61,214,140,0.35); }
   #locStatus { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .favorite-btn{width:38px;height:38px;flex-shrink:0;border:1px solid var(--line);border-radius:10px;background:var(--panel-2);color:var(--muted);font-size:20px;cursor:pointer}
+  .favorite-btn.active{color:var(--amber);border-color:var(--amber-dim)}
+  #favToggle{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:7px 10px}
 
   main {
     flex: 1;
@@ -418,6 +421,7 @@
   </div>
   <div class="loc-row">
     <button id="locBtn">📍 Sort by distance</button>
+    <button id="favToggle" type="button">☆ SAVED <span id="favCount">0</span></button>
     <span id="locStatus"></span>
   </div>
 </div>
@@ -466,6 +470,15 @@ const readoutEl = document.getElementById('readout');
 const locBtn = document.getElementById('locBtn');
 const locStatus = document.getElementById('locStatus');
 const gpsDot = document.getElementById('gpsDot');
+const favToggle = document.getElementById('favToggle');
+let favorites = new Set();
+let favoritesOnly = false;
+try { const saved = JSON.parse(localStorage.getItem('cnrl-map-favorites') || '[]'); if (Array.isArray(saved)) favorites = new Set(saved); } catch (e) {}
+function isFavorite(name) { return favorites.has(name); }
+function saveFavorites() { try { localStorage.setItem('cnrl-map-favorites', JSON.stringify(Array.from(favorites))); } catch (e) {} document.getElementById('favCount').textContent = favorites.size; }
+function toggleFavorite(name) { if (favorites.has(name)) favorites.delete(name); else favorites.add(name); saveFavorites(); render(); }
+saveFavorites();
+favToggle.addEventListener('click', () => { favoritesOnly = !favoritesOnly; favToggle.classList.toggle('active', favoritesOnly); favToggle.textContent = (favoritesOnly ? '★ SAVED ' : '☆ SAVED ') + favorites.size; render(); });
 
 function normalize(str) {
   return str
@@ -546,6 +559,7 @@ function renderCard(w, query) {
         ${infoHtml}
         ${distHtml}
       </div>
+      <button class="favorite-btn ${isFavorite(w.name) ? "active" : ""}" data-favorite="${escapeHtml(w.name)}" aria-label="Save location">${isFavorite(w.name) ? "★" : "☆"}</button>
       <button class="go-btn" data-lat="${w.lat}" data-lng="${w.lng}">➜</button>
     </div>
   `;
@@ -585,6 +599,8 @@ function routeFromHere(btn) {
 }
 
 contentEl.addEventListener('click', (e) => {
+  const star = e.target.closest('.favorite-btn');
+  if (star) { toggleFavorite(star.dataset.favorite); return; }
   const btn = e.target.closest('.go-btn');
   if (btn) routeFromHere(btn);
 });
@@ -600,7 +616,7 @@ function render() {
     results = [...WELLS];
     if (userLoc) {
       results.sort((a, b) => haversine(userLoc.lat, userLoc.lng, a.lat, a.lng) - haversine(userLoc.lat, userLoc.lng, b.lat, b.lng));
-    } else {
+    } else if (!favoritesOnly) {
       results = results.slice(0, 30);
     }
     readoutEl.innerHTML = userLoc
@@ -621,6 +637,7 @@ function render() {
       : `No match for "${escapeHtml(raw)}"`;
   }
 
+  if (favoritesOnly) results = results.filter(w => favorites.has(w.name));
   if (!results.length) {
     contentEl.innerHTML = `
       <div class="empty">
@@ -631,7 +648,7 @@ function render() {
     return;
   }
 
-  const label = q
+  const label = q || favoritesOnly
     ? ''
     : `<div class="count-label">${userLoc ? 'NEAREST FIRST' : 'ALL SITES (first 30 — search to narrow)'}</div>`;
   contentEl.innerHTML = label + `<div class="results">${results.map(w => renderCard(w, raw)).join('')}</div>`;
@@ -765,7 +782,7 @@ installModal.addEventListener('click', (e) => {
 });
 
 // ---------- Version check: compare running app vs the file currently deployed ----------
-const APP_VERSION = "2026.07.06-5";
+const APP_VERSION = "2026.11.24-6";
 const updateBanner = document.getElementById('updateBanner');
 const updateBtn = document.getElementById('updateBtn');
 let updateAvailable = false;
