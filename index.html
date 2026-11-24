@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- APP_VERSION: 2026.11.24-7 -->
+<!-- APP_VERSION: 2026.11.24-8 -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -784,35 +784,56 @@ installModal.addEventListener('click', (e) => {
   if (e.target === installModal) installModal.classList.remove('show');
 });
 
-// ---------- Version check: compare running app vs the file currently deployed ----------
-const APP_VERSION = "2026.11.24-7";
+// ---------- Version check: only offer updates newer than this running build ----------
+const APP_VERSION = "2026.11.24-8";
 const updateBanner = document.getElementById('updateBanner');
 const updateBtn = document.getElementById('updateBtn');
 let updateAvailable = false;
+let lastUpdateCheck = 0;
 
-async function checkForUpdate() {
-  if (updateAvailable) return; // already showing, no need to keep checking
+function compareVersions(a, b) {
+  const aa = String(a).match(/\\d+/g);
+  const bb = String(b).match(/\\d+/g);
+  if (!aa || !bb) return 0;
+  const length = Math.max(aa.length, bb.length);
+  for (let i = 0; i < length; i++) {
+    const av = Number(aa[i] || 0);
+    const bv = Number(bb[i] || 0);
+    if (av !== bv) return av > bv ? 1 : -1;
+  }
+  return 0;
+}
+
+async function checkForUpdate(force = false) {
+  const now = Date.now();
+  // Avoid repeated checks when iOS fires visibilitychange several times.
+  if (updateAvailable || (!force && now - lastUpdateCheck < 5 * 60 * 1000)) return;
+  lastUpdateCheck = now;
   try {
-    const res = await fetch(location.pathname + '?_v=' + Date.now(), { cache: 'no-store' });
+    const checkUrl = new URL(location.href);
+    checkUrl.searchParams.set('_version_check', String(now));
+    const res = await fetch(checkUrl.toString(), { cache: 'no-store' });
     if (!res.ok) return;
-    const text = await res.text();
-    const match = text.match(/APP_VERSION:\s*(.+?)\s*-->/);
-    if (match && match[1] !== APP_VERSION) {
+    const html = await res.text();
+    const match = html.match(/APP_VERSION:\\s*(.+?)\\s*-->/);
+    // A stale CDN response with an older version must never trigger a false update.
+    if (match && compareVersions(match[1], APP_VERSION) > 0) {
       updateAvailable = true;
       updateBanner.classList.add('show');
     }
   } catch (err) {
-    // offline or no signal — fail silently, this is a field app
+    // Offline or no signal — fail silently; this is a field app.
   }
 }
 
 updateBtn.addEventListener('click', () => {
-  window.location.href = location.pathname + '?_v=' + Date.now();
+  const refreshUrl = new URL(location.href);
+  refreshUrl.searchParams.set('_refresh', String(Date.now()));
+  window.location.replace(refreshUrl.toString());
 });
 
-// Check shortly after load, then periodically for long shifts
-setTimeout(checkForUpdate, 3000);
-setInterval(checkForUpdate, 10 * 60 * 1000);
+// Check once after startup; recheck at most every 5 minutes when returning to the app.
+setTimeout(() => checkForUpdate(true), 5000);
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') checkForUpdate();
 });
