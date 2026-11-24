@@ -288,6 +288,7 @@
   .favorite-btn{width:38px;height:38px;flex-shrink:0;border:1px solid var(--line);border-radius:10px;background:var(--panel-2);color:var(--muted);font-size:20px;cursor:pointer}
   .favorite-btn.active{color:var(--amber);border-color:var(--amber-dim)}
   #favToggle{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:7px 10px}
+  #favToggle.active{color:var(--amber);border-color:var(--amber-dim)}
 
   main {
     flex: 1;
@@ -475,10 +476,10 @@ let favorites = new Set();
 let favoritesOnly = false;
 try { const saved = JSON.parse(localStorage.getItem('cnrl-map-favorites') || '[]'); if (Array.isArray(saved)) favorites = new Set(saved); } catch (e) {}
 function isFavorite(name) { return favorites.has(name); }
-function saveFavorites() { try { localStorage.setItem('cnrl-map-favorites', JSON.stringify(Array.from(favorites))); } catch (e) {} document.getElementById('favCount').textContent = favorites.size; }
+function saveFavorites() { try { localStorage.setItem('cnrl-map-favorites', JSON.stringify(Array.from(favorites))); } catch (e) {} document.getElementById('favCount').textContent = String(favorites.size); favToggle.firstChild.textContent = favoritesOnly ? '★ SAVED ' : '☆ SAVED '; }
 function toggleFavorite(name) { if (favorites.has(name)) favorites.delete(name); else favorites.add(name); saveFavorites(); render(); }
 saveFavorites();
-favToggle.addEventListener('click', () => { favoritesOnly = !favoritesOnly; favToggle.classList.toggle('active', favoritesOnly); favToggle.textContent = (favoritesOnly ? '★ SAVED ' : '☆ SAVED ') + favorites.size; render(); });
+favToggle.addEventListener('click', () => { favoritesOnly = !favoritesOnly; favToggle.classList.toggle('active', favoritesOnly); favToggle.firstChild.textContent = favoritesOnly ? '★ SAVED ' : '☆ SAVED '; render(); });
 
 function normalize(str) {
   return str
