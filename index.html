@@ -792,8 +792,8 @@ let updateAvailable = false;
 let lastUpdateCheck = 0;
 
 function compareVersions(a, b) {
-  const aa = String(a).match(/\\d+/g);
-  const bb = String(b).match(/\\d+/g);
+  const aa = String(a).match(/[0-9]+/g);
+  const bb = String(b).match(/[0-9]+/g);
   if (!aa || !bb) return 0;
   const length = Math.max(aa.length, bb.length);
   for (let i = 0; i < length; i++) {
@@ -815,9 +815,14 @@ async function checkForUpdate(force = false) {
     const res = await fetch(checkUrl.toString(), { cache: 'no-store' });
     if (!res.ok) return;
     const html = await res.text();
-    const match = html.match(/APP_VERSION:\\s*(.+?)\\s*-->/);
+    const marker = 'APP_VERSION: ';
+    const markerAt = html.indexOf(marker);
+    const versionEnd = markerAt >= 0 ? html.indexOf(' -->', markerAt) : -1;
+    const remoteVersion = versionEnd > markerAt
+      ? html.slice(markerAt + marker.length, versionEnd).trim()
+      : '';
     // A stale CDN response with an older version must never trigger a false update.
-    if (match && compareVersions(match[1], APP_VERSION) > 0) {
+    if (remoteVersion && compareVersions(remoteVersion, APP_VERSION) > 0) {
       updateAvailable = true;
       updateBanner.classList.add('show');
     }
